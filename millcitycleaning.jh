@@ -1,0 +1,65 @@
+entity Customer {
+  name String,
+  contactDetails String,
+  type CustomerType
+}
+
+enum CustomerType {
+  RESIDENTIAL
+  COMMERCIAL
+}
+
+entity Location {
+  address String,
+  customer Customer
+}
+
+entity Job {
+  description String,
+  status JobStatus,
+  location Location
+}
+
+enum JobStatus {
+  COMPLETE
+  IN_PROCESS
+  NOT_STARTED
+}
+
+entity Price {
+  amount Float,
+  job Job
+}
+
+entity Task {
+  description String,
+  status TaskStatus,
+  job Job
+}
+
+enum TaskStatus {
+  COMPLETE
+  IN_PROCESS
+  NOT_STARTED
+}
+
+entity Employee {
+  name String,
+  role String,
+  manager Employee
+}
+
+relationship ManyToOne {
+  Location{customer} to Customer
+  Job{location} to Location
+  Price{job} to Job
+  Task{job} to Job
+  Task{employee} to Employee
+}
+
+relationship ManyToMany {
+  Employee{jobs} to Job{employees}
+}
+
+paginate Job, Location, Customer with infinite-scroll
+paginate Task, Price, Employee with pagination
