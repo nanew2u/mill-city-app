@@ -1,0 +1,2 @@
+org.springframework.test.context.ContextCustomizerFactory = com.\
+    millcitycleaning.app.config.SqlTestContainersSpringContextCustomizerFactory
